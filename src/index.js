@@ -2,11 +2,13 @@ import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 
-const app = express()
+import Home from '../containers/Home'
 
-const Home = () => {
-  return <div>Hello React SSR!11</div>
-}
+const app = express()
+app.use(express.static('public'))
+// const Home = () => {
+//   return <div>Hello React SSR!11</div>
+// }
 const content = renderToString(<Home />)
 
 const template = `
@@ -16,7 +18,8 @@ const template = `
     <title>ssr</title>
   </head>
   <body>
-    ${content}
+    <div id="root">${content}</div>
+    <script src='/index.js'></script>
   </body>
 </html>
 `
