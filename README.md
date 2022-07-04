@@ -12,7 +12,19 @@ npm run dev
 ## 同构 js事件
 同步客户端和服务器端，如果不引入同构概念，node渲染的页面（renderToString）无法处理事件
 
-## 同步 路由
+## 同构 路由
 npm install react-router-dom --save
 客户端使用browserRouter
 服务端使用staticRouter
+
+1. react18 需要使用 hydrateRoot
+`import { hydrateRoot } from 'react-dom/client'`
+![react 18 document](https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-client-rendering-apis)
+
+2. Route 必须包裹在 Routes 当中
+`import { Routes, Route } from 'react-router-dom'`
+
+## 同构 Redux
+npm install react-redux redux --save
+1. 同构客户端和服务端
+2. 通过注水和脱水，可以在服务器端初始化 redux的值
