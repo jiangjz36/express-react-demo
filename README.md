@@ -28,3 +28,10 @@ npm install react-router-dom --save
 npm install react-redux redux --save
 1. 同构客户端和服务端
 2. 通过注水和脱水，可以在服务器端初始化 redux的值
+
+## 同构 样式
+npm i isomorphic-style-loader
+npm install css-loader postcss-loader style-loader -D
+
+css-loader 需要使用3.6.0以下的版本，不然styles._getCss()打印出来是[object module]
+并且webpack中需要开启modules

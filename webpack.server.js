@@ -11,7 +11,7 @@ module.exports = [
       path: path.resolve(__dirname, 'build')
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.css'],
       alias: {
         '@': path.resolve(__dirname)
       }
@@ -34,6 +34,22 @@ module.exports = [
               ]
             }
           }
+        }, {
+          test: /\.css$/,
+          use: [
+            'isomorphic-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                modules: {
+                  localIdentName: "[path][name]__[local]--[hash:base64:5]"
+                }
+                
+              }
+            },
+            'postcss-loader'
+          ]
         }
       ]
     }
@@ -46,7 +62,7 @@ module.exports = [
     },
     devtool: 'source-map',
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.css'],
       alias: {
         '@': path.resolve(__dirname)
       }
@@ -68,6 +84,22 @@ module.exports = [
               ]
             }
           }
+        }, {
+          test: /\.css$/,
+          exclude: /node_modules[\\/]codemirror/,
+          use: [
+            'isomorphic-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                modules: {
+                  localIdentName: "[path][name]__[local]--[hash:base64:5]"
+                }
+              }
+            },
+            'postcss-loader'
+          ]
         }
       ]
     }

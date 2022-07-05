@@ -9,47 +9,52 @@ import { Provider } from 'react-redux'
 import { getStore } from '@/store'
 import qs from 'qs'
 
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 
 const app = express()
 app.use(express.static('public'))
 
 const render = (req, res) => {
   const params = qs.parse(req.query)
-  console.log('params ->>', params)
 
   // 从 store 中获得初始 state
   const preloadedState = { home: { infoList: params.aa ? [params.aa] : [] } }
 
   const store = getStore(preloadedState)
 
+  const css = new Set() // CSS for all rendered React components
+  const insertCss = (...styles) => styles.forEach(style => css.add(style._getCss()))
 
   const content = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={{}}>
-        { Routes }
-      </StaticRouter>
-    </Provider>
+    <StyleContext.Provider value={{ insertCss }}>
+      <Provider store={store}>
+          <StaticRouter location={req.url} context={{}}>
+            { Routes }
+          </StaticRouter>
+      </Provider>
+    </StyleContext.Provider>
   )
-
   
-  
-  const renderFullPage = (content, preloadedState) => {
+  setTimeout(() => {
+    const renderFullPage = (content, preloadedState) => {
     return `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <title>ssr</title>
-      </head>
-      <body>
-        <div id="root">${content}</div>
-        <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(preloadedState)}
-        </script>
-        <script src='/index.js'></script>
-      </body>
-    </html>`
-  }
+      <html lang="en">
+        <head>
+          <title>ssr</title>
+          <style>${[...css].join('')}</style>
+        </head>
+        <body>
+          <div id="root">${content}</div>
+          <script>
+            window.__INITIAL_STATE__ = ${JSON.stringify(preloadedState)}
+          </script>
+          <script src='/index.js'></script>
+        </body>
+      </html>`
+    }
 
-  res.send(renderFullPage(content, preloadedState));
+    res.status(200).send(renderFullPage(content, preloadedState));
+  }, 0)
 }
 
 app.use(render);
@@ -58,5 +63,7 @@ app.use(render);
 //   res.send(render(req))
 // })
 
-app.listen(3000)
+app.listen(8888, () => {
+  console.log('listen :8888')
+})
 

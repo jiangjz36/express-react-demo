@@ -7,11 +7,17 @@ import Routes from '@/routes'
 import { Provider } from 'react-redux'
 import { getStore } from '@/store'
 
+import StyleContext from 'isomorphic-style-loader/StyleContext'
+
 const preloadedState = window.__INITIAL_STATE__
-console.log('preloadedState ->>', preloadedState)
 
 const store = getStore(preloadedState)
-console.log('store ->>', store)
+
+const insertCss = (...styles) => {
+  const removeCss = styles.map(style => style._insertCss())
+  return () => removeCss.forEach(dispose => dispose())
+}
+
 
 const App = () => (
   <Provider store={store}>
@@ -21,4 +27,8 @@ const App = () => (
   </Provider>
 )
 
-hydrateRoot(document.getElementById('root'), <App />)
+hydrateRoot(document.getElementById('root'), (
+  <StyleContext.Provider value={{ insertCss }}>
+    <App />
+  </StyleContext.Provider>
+))

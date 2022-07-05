@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { getHomeInfoList } from '@/store/actions'
 import { Link } from "react-router-dom"
 
+import styles from './styles.css'
+import withStyles from 'isomorphic-style-loader/withStyles'
+
 const Home = (props) => {
   const { setInfoList, infoList } = props
-  console.log('home ->>', props)
   return (
-    <div>
+    <div className={styles.container}>
       <div>Hello React SSR!</div>
       <div>{JSON.stringify(infoList)}</div>
       <button onClick={() => {
@@ -22,7 +24,6 @@ const Home = (props) => {
 }
 
 const mapStateToProps = (state)=>{
-  console.log('home state ->>', state.home)
   const { infoList } = state.home
   return {
     infoList
@@ -34,4 +35,6 @@ const mapDispatchToProps = (dispatch)=>{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(Home)
+)
