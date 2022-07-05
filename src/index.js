@@ -3,10 +3,10 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { StaticRouter } from 'react-router-dom/server'
-import Routes from '../routes'
+import Routes from '@/routes'
 
 import { Provider } from 'react-redux'
-import { getStore } from '../store'
+import { getStore } from '@/store'
 import qs from 'qs'
 
 
@@ -18,7 +18,7 @@ const render = (req, res) => {
   console.log('params ->>', params)
 
   // 从 store 中获得初始 state
-  const preloadedState = { home: { infoList: [params.aa] } }
+  const preloadedState = { home: { infoList: params.aa ? [params.aa] : [] } }
 
   const store = getStore(preloadedState)
 

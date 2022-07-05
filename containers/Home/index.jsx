@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHomeInfoList } from './store/actions'
+import { getHomeInfoList } from '@/store/actions'
+import { Link } from "react-router-dom"
 
 const Home = (props) => {
   const { setInfoList, infoList } = props
@@ -15,6 +16,7 @@ const Home = (props) => {
       <button onClick={() => {
         setInfoList(['1', '2'])
       }}>click setInfoList</button>
+      <Link to="/login">to login</Link>
     </div>
   )
 }

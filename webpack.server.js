@@ -11,7 +11,10 @@ module.exports = [
       path: path.resolve(__dirname, 'build')
     },
     resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx'],
+      alias: {
+        '@': path.resolve(__dirname)
+      }
     },
     externals: [webpackNodeExternals()],
     module: {
@@ -43,7 +46,10 @@ module.exports = [
     },
     devtool: 'source-map',
     resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx'],
+      alias: {
+        '@': path.resolve(__dirname)
+      }
     },
     module: {
       rules: [

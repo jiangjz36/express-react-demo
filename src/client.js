@@ -2,10 +2,10 @@ import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
-import Routes from '../routes'
+import Routes from '@/routes'
 
 import { Provider } from 'react-redux'
-import { getStore } from '../store'
+import { getStore } from '@/store'
 
 const preloadedState = window.__INITIAL_STATE__
 console.log('preloadedState ->>', preloadedState)
