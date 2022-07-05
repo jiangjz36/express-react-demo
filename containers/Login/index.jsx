@@ -5,15 +5,24 @@ import { Link } from "react-router-dom"
 import s from './styles.css'
 import withStyles from 'isomorphic-style-loader/withStyles'
 
+import { Helmet } from "react-helmet"
+
 const Login = (props) => {
   const { infoList } = props
   return (
-    <div className={s.container}>
-      <div>Login</div>
-      <div>{JSON.stringify(infoList)}</div>
-      <button onClick={() => {alert('click')}}>click</button>
-      <Link to="/">to home</Link>
-    </div>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>link title</title>
+        <meta name="description" content="link title 内容" />
+      </Helmet>
+      <div className={s.container}>
+        <div>Login</div>
+        <div>{JSON.stringify(infoList)}</div>
+        <button onClick={() => {alert('click')}}>click</button>
+        <Link to="/">to home</Link>
+      </div>
+    </>
   )
 }
 
