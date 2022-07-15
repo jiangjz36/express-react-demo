@@ -35,7 +35,7 @@ module.exports = [
             }
           }
         }, {
-          test: /\.css$/,
+          test: /\.(less|css)$/,
           use: [
             'isomorphic-style-loader',
             {
@@ -48,8 +48,21 @@ module.exports = [
                 
               }
             },
-            'postcss-loader'
+            'postcss-loader',
+            'less-loader'
           ]
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/i,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                esModule: false
+              },
+            },
+          ],
         }
       ]
     }
@@ -85,7 +98,7 @@ module.exports = [
             }
           }
         }, {
-          test: /\.css$/,
+          test: /\.(less|css)$/,
           exclude: /node_modules[\\/]codemirror/,
           use: [
             'isomorphic-style-loader',
@@ -98,8 +111,21 @@ module.exports = [
                 }
               }
             },
-            'postcss-loader'
+            'postcss-loader',
+            'less-loader'
           ]
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/i,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                esModule: false
+              },
+            },
+          ],
         }
       ]
     }
