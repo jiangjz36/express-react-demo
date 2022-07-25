@@ -1,11 +1,4 @@
 .container {
-  /* background: #eaeaea; */
+  background: #eaeaea;
   color: red;
-}
-
-.container .dividerWrap {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  background: #eee;
 }

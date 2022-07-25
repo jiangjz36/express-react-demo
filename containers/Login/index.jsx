@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
 
-import s from './styles.less'
+import s from './styles.css'
 import withStyles from 'isomorphic-style-loader/withStyles'
 
 import { Helmet } from "react-helmet"
@@ -21,9 +21,6 @@ const Login = (props) => {
         <div>{JSON.stringify(infoList)}</div>
         <button onClick={() => {alert('click')}}>click</button>
         <Link to="/">to home</Link>
-        <div className={s.imgHeader}>
-          <img src='/images/header.jpeg' alt="" />
-        </div>
       </div>
     </>
   )
